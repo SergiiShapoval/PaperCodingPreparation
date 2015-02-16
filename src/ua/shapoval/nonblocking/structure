@@ -1,0 +1,59 @@
+import atomic
+
+public class NonBlockingQueue<T>
+
+        AtomicReference<Node<T>> first = new;
+        AtomicReference<Node<T>> last = new;
+        AtomicInteger size;
+
+        private class Node<T>{
+            T value;
+            AtomicReference<Node<T>> next = new
+
+            private Node<T>(T value){
+                this.value = value;
+            }
+
+        }
+
+        + NBQ(){}
+        +isEmpty;
+        +size;
+        + boolean offer;
+        + T poll;
+        + T peek;
+
+
+        offer (T value){
+            Node<T> current = new;
+            while(true){
+                if last.compareAndSet null, current
+                    first.setAndGet(current);
+                    size.incrementAndGet();
+                    return true;
+
+                Node<T> currentLast = last.get
+                if currentLast == null
+                    continue
+                if  !currentLast.next.compareAndSet(null, current)
+                    continue
+                size.incrementAndGet
+                return true
+            }
+        }
+
+
+        T poll(){
+            Node firstNode;
+            while(true){
+            if (firstNode = first.get) == null
+                return null
+            if last.compareAndSet(firstNode, null)
+                size.decrementAndGet();
+                return firstNode.value;
+            if first.compareAndSet(firstNode, firstNode.next.get())
+                size.decrementAndGet();
+                return firstNode.value
+                }
+        }
+

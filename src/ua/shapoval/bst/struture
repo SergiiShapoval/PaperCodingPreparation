@@ -1,0 +1,120 @@
+
+
++ class BST <T extends Comparable<T>, V>{
+
+    Node<T,V> head;
+    - int size
+    - class Node <T extends Comparable<T>, V>{
+
+        T key;
+        V value
+        Node<T,V> parent;
+        Node<T,V> left;
+        Node<T,V> right;
+
+        - Node (T key, V value)
+
+
+    }
+
+    + boolean isEmpty()
+    + int size()
+    + put(T key, V value )
+    + remove(T value)
+
+
+    put{
+        Node<T,V> newNode = new Node(key, value);
+        if  head == null -> head = newNode; size++; return;
+
+        Node parentNode = findParentNode(null, head, key);
+        if (parentNode == null) head.value = value; return;
+
+        //go left
+        if  (compareKeys(parentNode, key) > 0)
+            if parentNode.left != null {parentNode.left.value = value; return;}
+            parentNode.left = newNode;
+            newNode.parent = parentNode;
+            size++;
+            return;
+
+        //go right
+        if parentNode.right != null{ parentNode.right.value = value; return;}
+        parentNode.right = newNode;
+        newNode.parent = parentNode;
+        size++;
+    }
+
+    - Node<T, V> findParentNode(Node<T,V> parent, Node<T,V> child, T key){
+        if child == null return parent;
+        int comparison = compareKeys (child.key, key);
+        if  comparison == 0 return parent;
+        if comparison < 0 return findParentNode(node, node.right, key);
+        return findParentNode(node, node.left, key);
+    }
+
+
+    - int compareKeys(T key1, T key2){
+        if  key1 == key2  return 0;
+        if  key1 != null return key1.compareTo(key2);
+        return key2.compareTo(key1);
+    }
+
+    remove(T key){
+        Node node = findNode( head, key)
+
+        if node == null return null;
+        V value = (V) node.value;
+
+        if node.parent == null
+            if node.left == null
+                head = node.right;
+                return value;
+            removeLeftCase (node, head);
+            return value;
+
+        if node.left == null
+            if isLeftChild() node.parent.left = node.right; return value;
+            node.parent.right = node.right; return value;
+
+        removeLeftCase(node, node.parent);
+        return value
+
+
+    }
+
+    - isLeftChild(Node<T,V> node){
+        return node.parent.left == node;
+    }
+
+    - changeNodesRelations(Node maxRightChild, Node node){
+        maxRightChild.parent.right = maxRightChild.left;
+        maxRightChild.left = node.left;
+        maxRightChild.right = node.right;
+    }
+
+    void removeLeftCase(Node node, Node parent){
+        Node maxRightChild = findMaxRightChild(node.left);
+        if maxRightChild != node.left;{
+            changeNodesRightChild(maxRightChild, node);
+            parent = maxRightChild;
+        else {
+        parent = node.left;
+        }
+
+    }
+
+
+    - Node<T, V> findNode(Node<T,V> node, T key){
+      if    node == null return null;
+      int comparison = compareKeys(node.key, key);
+      if comparison == 0  return node;
+      if comparison > 0 return findNode(node.left, key);
+      return findNode(node.right, key);
+    }
+
+
+
+
+
+}

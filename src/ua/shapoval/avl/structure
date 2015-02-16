@@ -1,0 +1,83 @@
+
+
+
+
++ class AVLTree <K extends Comparable<K>>, V>{
+
+
+    - Node<K, V> head;
+    - int size
+
+    - class Node<K, V>{
+        K key;
+        V value;
+        Node<K, V> left;
+        Node<K, V> right;
+        Node<K, V> parent;
+        int balance;
+        Node(K key, V value){
+
+        }
+    }
+
+    + int size() {return size;}
+    + boolean isEmpty {retrun size == 0;}
+
+    + void put(K key, V value);
+    + V remove(K key);
+
+    + int balance(Node node){
+        if node == null return 0;
+        return balance(node.right) - balance(node.left);
+    }
+
+    - int compareKeys( K key1, K key2){
+        if  key1 == key2  return 0;
+        if  key1 != null return key1.compareTo(key2);
+        return key2.compareTo(key1);
+    }
+
+
+    put{
+        Node newNode = new Node(key, value);
+
+        if  head == null head = newNode; size++; return;
+
+        Node insertNode = findNode(head, key);
+        int comparison =  compareKeys( insertNode.key, key);
+        if  comparison == 0 insertNode.value = value; return;
+
+        if comparison > 0 insertNode.left = newNode
+        else insertNode.right = newNode;
+
+        head = reBalance(insertNode);
+        size++
+    }
+
+    - Node reBalance (Node node ){
+        if  node.parent == null{
+            if (int) Math.abs(balance(node)) < 2
+                return node.parent;
+            if  balance(node) == 2
+                return leftTurn(node);
+            return rightTurn(node);
+        }
+
+    }
+
+
+    - Node leftTurn(Node node){
+        Node buffer = node.right;
+        node.right = buffer.left;
+        node.right.parent = node;
+        node.parent = buffer;
+        buffer.left = node
+        return buffer
+    }
+
+    - Node rightTurn(Node node){
+        Node buffer = node.left;
+        node.left = buffer.left;
+        buffer.left = 
+    }
+}

@@ -1,0 +1,42 @@
+Station (Semaphore)
+-carLimit;
+-List<Thread> parkedCars;
+-List<Thread> visitedCars;
+
++ boolean synchronized accept(CarThread){
+wait(CarThread.getWaitTime()) while limit = 0;
+if limit = 0 = exit without accept
+decrease limit
+add car;
+notifyAll
+}
++ synchronized release(Thread){
+if in parkedCars{
+add to visited;
+remove;
+increase carLimit;
+}
+}
+
+_________________
+StationTest
++main{
++List<Thread> createCars(int Qty);
++waitCars
+sout allCars;
+sout semaphore.getVisitedCars()
+}
+
+__________
+CarThread extends Thread +
+-waitTime;
+-startTime;
+-parkedTime;
+-Station
+-run{
+wait (startTime)
+boolean accept()
+check accept
+wait (parkedTime)
+release
+}

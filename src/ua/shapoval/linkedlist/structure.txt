@@ -1,0 +1,72 @@
+LinkedList
+
+Node first;
+Node last;
+private int size;
+
+
+
+public int size();
+public boolean isEmpty();
+public void add( Integer value){
+    Node current = new Node();
+    current.value = value;
+    if isEmpty {
+        first = current;
+        last = current;
+    }
+    else {
+        last.next = current,
+        current.previous = last;
+        last = last.next;
+    }
+    size++;
+}
+public boolean remove (Object value ){
+    if isEmpty return false;
+    Integer deleteValue = null;
+    if  (value instanceof Integer)
+    deleteValue = (Integer) value;
+    else return false;
+    if  first.value.equals(deleteValue){
+        current = first = first.next;
+        if first != null
+            first.previous = null;
+    }
+    else
+    Node parentDeleteNode = findParentDeleteNode( deleteValue);
+    if parentDeleteNode == null return false;
+     else { current = parentDeleteNode.next = parentDeleteNode.next.next;
+           if parentDeleteNode.next != null
+                parentDeleteNode.next.previous = parentDeleteNode;
+
+     size--;
+
+
+
+}
+public Integer get( int index){
+    if  (index >= size) return null;
+    int endIndex = size() - index;
+    Node valueNode;
+    if (index > endIndex){
+        valueNode = last;
+        for(int i = 0; i < endIndex; i++){
+            valueNode = valueNode.previous;
+        }
+    } else{
+        valueNode = first;
+        for(int i = 0; i < index; i++){
+            valueNode = valueNode.next;
+        }
+    }
+    return valueNode.value;
+
+}
+
+_______________________
+private class Node
+ Integer value;
+ Node next;
+ Node previous;
+ private Node(){}

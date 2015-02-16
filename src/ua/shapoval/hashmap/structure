@@ -1,0 +1,97 @@
+public class HashMap
+
+       private Node[] storage;
+       private int size;
+
+       private class Node{
+            private final hash;
+            private Integer key;
+            private String value;
+            private Node next;
+
+            private Node(int hash, Integer key, String value, Node next)
+       }
+
+       public int size()
+       public boolean isEmpty()
+
+       public boolean put(Integer key, String value )
+
+       public boolean get(Integer key)
+
+       public String remove(Integer key)
+
+
+       put{
+            if size >= (int) 0.75 * storage.length -> increaseStorage();
+            Node newNode = new Node (hash(key), key, value, null);
+            int cellAddress = newNode.hash & (storage.length - 1)
+            if  storage[cellAddress] == null
+                storage[cellAddress] = newNode;
+                return
+
+             Node lastNodeOrByKey = findLastNodeOrByKey (storage[newNode.hash], key)
+             lastNode.next = newNode;
+
+
+
+       }
+
+
+       private int hash(Integer key){
+        return key == null ? 0 : (h = key.hashCode()) ^ (h >>> 16)
+       }
+
+       - Node findLastNodeOrByKey (Node currentNode, Integer key){
+            while currentNode.next != null &&
+
+                currentNode = currentNode.next;
+            return currentNode;
+        }
+
+       - void increaseStorage(){
+        Node[] newStorage = new Node[storage.length * 2];
+
+        for Node node : storage
+            while node != null
+                int position = node.hash & (newStorage.length - 1);
+
+                if  newStorage[position] == null
+                    newStorage[position] = node;
+                    node = node.next;
+                    newStorage[position].next = null;
+                    continue;
+
+                Node lastNode =  findLastNode(newStorage[position]);
+                lastNode.next = node;
+                node= node.next;
+                lastNode.next.next = null
+
+       }
+
+
+       - String remove(Integer key){
+            int cellAddress = hash(key) & (storage.length - 1);
+
+            Node current = findParentNodeByKey(storage[cellAddress], key);
+            if  current == null return null
+            String result = current.next.value;
+
+            current.next = current.next.next;
+            size--;
+            return result;
+       }
+
+       - findParentNodeByKey (Node node, Integer key){
+            if node == null  -> null
+            if node.next == null -> null
+            while equalsKeys(node.next.key, key)
+                node = node.next;
+                if node.next == null return null
+
+            return node;
+       }
+
+       - boolean equalsKeys(Integer key1, Integer key2)
+        key1 != key2 ||
+                                    (key1 != null && key1.equals (key2))

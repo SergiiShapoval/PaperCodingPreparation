@@ -1,0 +1,53 @@
+class CyclicBarrier
+
+-threadLimit;
+-Runnable task;
+- boolean isTaskStarted
+-taskStartLimit;
+-Set<Thread> threadSet
+
++ synchronized reset(){
+for(threadSet) thread.stop();
+threadSet.clear();
+isTaskStarted = false;
+}
++ synchronized await(){
+threadSet.add(Thread.currentThread());
+while threadLimit >= threadSet.size() wait()
+wait while threadSet.size() < threadLimit {
+if  threadLimit == taskStartLimit -> startTask()
+isTaskStarted = true;
+}
+
+notifyAll()
+ что если сбили без запуска?
+
+}
+
+- startTask(){new Thread(task).start()}
+
+________
+CyclicThread extends Thread
+- CyclicBarrier
+- number
+- threadQty;
+run(){
+sleep(1000);
+sout(number " has finished");
+}
+
+
+___________
+CyclicBarrierTest
++main{
+cyclicBarrier
+list<Thread> createThreads(threadQty, cyclicBarrier);
+cyclicBarrier.reset();
+
+sout("reset has done")
+
+list<Thread> createThreads(threadQty, cyclicBarrier);
+waitThreads(threadList);
+sout("Test has finished")
+
+}

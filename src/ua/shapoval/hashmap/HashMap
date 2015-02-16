@@ -1,0 +1,112 @@
+
+
+
+
+public class HashMap{
+
+       private Node[] storage = new Node[16];
+       private int size;
+
+       private class Node{
+            final int hash;
+            Integer key;
+            String value;
+            Node next;
+            private Node(int hash, Integer key, String value, Node node){
+             this.hash = hash;
+             this.key = key;
+             this.value = value;
+             this.node = node;
+            }
+
+       }
+
+
+       public HashMap(){}
+
+       public int size(){ return size;}
+
+       public boolean isEmpty(){ return size == 0;}
+
+       public void put (Integer key, String value){
+            if  (size >= storage.length) increaseStorage();
+
+            Node newNode = new Node(hash(key), key, value, node);
+            int cellAddress = newNode.hash & (storage.length - 1);
+
+            if  (storage[cellAddress] == null){
+                storage[cellAddress] = newNode;
+                return;
+            }
+
+            Node lastNodeOrCurrentKeyNode = findLastNodeOrCurrentKeyNode( storage[cellAddress], key);
+
+            if (equalKeys(lastNodeOrCurrentKeyNode, key)){
+                lastNodeOrCurrentKeyNode.value = value;
+                return;
+            }
+
+            lastNodeOrCurrentKeyNode.next = newNode;
+
+       }
+
+       private int hash(Integer key){
+        return key == null ? 0 : (h = key.hashcode()) ^ (h >>> 16);
+       }
+
+       private boolean equalKeys (Integer key1, Integer key2){
+            return key1 == key2 || (key1 != null && key1.equals(key2));
+       }
+
+       private Node findLastNodeOrCurrentKeyNode (Node node, Integer key){
+            while(node.next != null || !equalKeys(node.key, key) ){
+                node = node.next;
+            }
+            return node;
+       }
+
+       private void increaseStorage(){
+            Node[] newStorage = new Node[storage.length << 2];
+
+            for(Node node: storage){
+                while(node != null) {
+                    int cellAddress = node.hash & (newStorage.length - 1);
+                    if(newStorage[cellAddress] == null) {
+                        newStorage[cellAddress] = node;
+                        node=node.next;
+                        newStorage[cellAddress].next = null;
+                        continue;
+                    }
+
+                    Node lastNode = findLastNode(newStorage[cellAddress]);
+                    lastNode.next = node;
+                    node = node.next;
+                    lastNode.next.next = null;
+                }
+            }
+
+            storage = newStorage;
+       }
+
+       private Node findLastNode(Node node){
+            while(node.next != null)
+                node = node.next;
+            return node;
+       }
+
+       public String remove(Integer key){
+            int cellAddress = hash(key) & (storage.length - 1);
+
+            Node current = findLastNodeOrCurrentKeyNode(storage[cellAddress], key);
+
+            if  (current.next == null )
+                return null;
+            String result = current.next.value;
+            current.next = current.next.next;
+            return result;
+       }
+
+}
+
+
+

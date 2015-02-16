@@ -1,0 +1,67 @@
+public class PriorityQueue
+
+
+private Integer[] storage;
+private size;
+
+public PriorityQueue()
+public PriorityQueue(int storageDimension)
+
+
+public boolean isEmpty()
+public int size();
+
+public boolean offer(Integer value);
+public Integer peek();
+public Integer poll();
+
+offer(Integer value){
+    if  value == null -> return false;
+    if storage.length <= size() doubleStorage()
+    storage[size] = value;
+    getUp(size);
+    size++;
+}
+
+private void getUp( int pos){
+    if  pos == 0 return;
+    int parentPos == pos >> 1;
+    if (storage[parentPos].compareTo( storage [pos]) >= 0)
+        return;
+    change(parentPos, pos);
+    getUp(parentPos);
+}
+
+private void change(int pos1, int pos2){
+    Integer buffer = storage[pos1];
+    storage[pos1] = storage[pos2];
+    storage[pos2] = buffer;
+}
+
+public Integer peek() { return isEmpty() ? null : storage[0];}
+public Integer poll() {
+    if  isEmpty() -> return null;
+    size--;
+    change(0, size);
+    getDown(0);
+    return result;
+}
+
+private void getDown(int pos){
+    int childPos1 = pos << 1 + 1;
+    int childPos2 = childPos1++;
+
+    if  childPos2 >= size return
+
+    int maxChildPos = getMaxChild(childPos1, childPos2);
+
+    if  storage[maxChildPos] <= storage[pos] return;
+    change(maxChildPos, pos);
+    getDown(maxChildPos);
+}
+
+private int getMaxChildPos( int childPos1, int childPos2)
+    if  childPos1 >= size return childPos2;
+    if childPos2 >= size return childPos1;
+    if  storage[childPos1] > storage[childPos2] return childpos1;
+    return childPos2;

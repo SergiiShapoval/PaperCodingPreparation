@@ -1,0 +1,19 @@
+package ua.shapoval.singleton;
+
+
+
+public class SyncSingle{
+
+    private SyncSingle instance;
+
+    private SyncSingle(){}
+
+    public synchronized getInstance(){
+        if  (instance = null) {
+            instance = new SyncSingle();
+        }
+        return instance;
+    }
+
+    public void function(){}
+}
